@@ -1,5 +1,6 @@
 package com.saloeater.pixelmonjei;
 
+import com.pixelmonmod.pixelmon.api.spawning.conditions.RarityMultiplier;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
 import com.pixelmonmod.pixelmon.api.world.WeatherType;
 import com.pixelmonmod.pixelmon.api.world.WorldTime;
@@ -30,6 +31,57 @@ public class ConditionIconBuilder {
             ItemStack barrierIcon = new ItemStack(Items.BARRIER);
 
             registerConditions(antiConditions, MAX_LINES_PER_ICON, ingredients, header, barrierIcon);
+        }
+
+        return ingredients;
+    }
+
+    public static List<ConditionIngredient> buildMultiplierIngredients(PixelmonSpawningItemRecipe recipe) {
+        List<ConditionIngredient> ingredients = new ArrayList<>();
+        final int MAX_LINES_PER_ICON = 12;
+
+        List<RarityMultiplier> multipliers = recipe.getRarityMultipliers();
+
+        for (RarityMultiplier multiplier : multipliers) {
+            List<String> lines = new ArrayList<>();
+
+            // Add multiplier value as header
+            lines.add("§6" + I18n.get("pixelmonjei.label.multiplier") + ": §fx" + String.format("%.2f", multiplier.multiplier));
+
+            // Add conditions if present
+            if (multiplier.condition != null) {
+                Map<ConditionType, List<String>> conditionGroups = new HashMap<>();
+                groupConditionsByType(multiplier.condition, conditionGroups);
+
+                for (Map.Entry<ConditionType, List<String>> entry : conditionGroups.entrySet()) {
+                    lines.addAll(entry.getValue());
+                }
+            }
+
+            // Add anti-conditions if present
+            if (multiplier.anticondition != null) {
+                lines.add("§c" + I18n.get("pixelmonjei.label.not") + ":");
+                Map<ConditionType, List<String>> antiConditionGroups = new HashMap<>();
+                groupConditionsByType(multiplier.anticondition, antiConditionGroups);
+
+                for (Map.Entry<ConditionType, List<String>> entry : antiConditionGroups.entrySet()) {
+                    lines.addAll(entry.getValue());
+                }
+            }
+
+            ItemStack icon = ConditionType.MULTIPLIER.createStack();
+
+            // Split into chunks if too long
+            if (lines.size() <= MAX_LINES_PER_ICON) {
+                ingredients.add(new ConditionIngredient(ConditionType.MULTIPLIER, icon, lines, false));
+            } else {
+                List<String> header = new ArrayList<>();
+                header.add(lines.get(0)); // Keep multiplier value as header
+                List<List<String>> chunks = splitIntoChunks(lines, MAX_LINES_PER_ICON, header);
+                for (List<String> chunk : chunks) {
+                    ingredients.add(new ConditionIngredient(ConditionType.MULTIPLIER, icon, chunk, false));
+                }
+            }
         }
 
         return ingredients;

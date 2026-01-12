@@ -2,6 +2,7 @@ package com.saloeater.pixelmonjei;
 
 import com.pixelmonmod.pixelmon.api.spawning.SpawnInfo;
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.items.SpawnInfoItem;
+import com.pixelmonmod.pixelmon.api.spawning.conditions.RarityMultiplier;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,7 @@ public class PixelmonSpawningItemRecipe {
     private final ItemStack output;
     private final List<SpawnCondition> conditions;
     private final List<SpawnCondition> antiConditions;
+    private final List<RarityMultiplier> rarityMultipliers;
     private final int minQuantity;
     private final int maxQuantity;
     private final float rarity;
@@ -41,6 +43,7 @@ public class PixelmonSpawningItemRecipe {
 
         this.conditions = new ArrayList<>();
         this.antiConditions = new ArrayList<>();
+        this.rarityMultipliers = new ArrayList<>();
 
         for (SpawnInfo parent : parentHierarchy) {
             if (parent.condition != null) {
@@ -49,6 +52,9 @@ public class PixelmonSpawningItemRecipe {
             if (parent.anticondition != null) {
                 this.antiConditions.add(parent.anticondition);
             }
+            if (parent.rarityMultipliers != null) {
+                this.rarityMultipliers.addAll(parent.rarityMultipliers);
+            }
         }
 
         if (spawnInfoItem.condition != null) {
@@ -56,6 +62,9 @@ public class PixelmonSpawningItemRecipe {
         }
         if (spawnInfoItem.anticondition != null) {
             this.antiConditions.add(spawnInfoItem.anticondition);
+        }
+        if (spawnInfoItem.rarityMultipliers != null) {
+            this.rarityMultipliers.addAll(spawnInfoItem.rarityMultipliers);
         }
 
         this.groupedConditions = new HashMap<>();
@@ -142,5 +151,9 @@ public class PixelmonSpawningItemRecipe {
 
     public Map<ConditionType, List<String>> getGroupedAntiConditions() {
         return groupedAntiConditions;
+    }
+
+    public List<RarityMultiplier> getRarityMultipliers() {
+        return rarityMultipliers;
     }
 }

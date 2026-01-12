@@ -25,5 +25,10 @@
   "pixelmonjei.label.phase": "Phase",
   "pixelmonjei.label.yes": "Yes",
   "pixelmonjei.label.no": "No",
-  "pixelmonjei.label.not": "NOT"
+  "pixelmonjei.label.not": "NOT",
+  "pixelmonjei.label.multiplier": "Multiplier",
+
+  "pixelmonjei.multiplier": "Multiplier",
+  "pixelmonjei.label.conditions_header": "Conditions",
+  "pixelmonjei.label.multipliers_header": "Multipliers"
 }
