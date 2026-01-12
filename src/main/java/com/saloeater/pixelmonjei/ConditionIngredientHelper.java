@@ -3,6 +3,7 @@ package com.saloeater.pixelmonjei;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
@@ -16,7 +17,7 @@ public class ConditionIngredientHelper implements IIngredientHelper<ConditionIng
 
     @Override
     public String getDisplayName(ConditionIngredient ingredient) {
-        return ingredient.getType().getDisplayName();
+        return I18n.get(ingredient.getType().getTranslationKey());
     }
 
     @Override

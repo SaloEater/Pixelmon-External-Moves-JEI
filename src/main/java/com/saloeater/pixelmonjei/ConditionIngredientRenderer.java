@@ -25,9 +25,6 @@ public class ConditionIngredientRenderer implements IIngredientRenderer<Conditio
         ItemRenderer itemRenderer = minecraft.getItemRenderer();
         FontRenderer font = minecraft.font;
 
-        xPosition += 1;
-        yPosition += 1;
-
         itemRenderer.renderAndDecorateItem(ingredient.getIcon(), xPosition, yPosition);
         itemRenderer.renderGuiItemDecorations(font, ingredient.getIcon(), xPosition, yPosition);
     }

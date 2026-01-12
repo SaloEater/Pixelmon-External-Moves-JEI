@@ -7,34 +7,34 @@ import net.minecraft.item.Items;
 import java.util.Collection;
 
 public enum ConditionType {
-    TIME(Items.CLOCK, "Time"),
-    WEATHER(Items.SNOW_BLOCK, "Weather"),
-    BIOMES(Items.GRASS_BLOCK, "Biomes"),
-    DIMENSIONS(Items.OBSIDIAN, "Dimension"),
-    LIGHT_LEVEL(Items.GLOWSTONE, "Light Level"),
-    SEES_SKY(Items.GLASS, "Sees Sky"),
-    TEMPERATURE(Items.ICE, "Temperature"),
-    BASE_BLOCKS(Items.STONE, "Base Blocks"),
-    NEARBY_BLOCKS(Items.CHEST, "Nearby Blocks"),
-    COORDINATES(Items.COMPASS, "Coordinates"),
-    STRUCTURES(Items.BRICKS, "Structures"),
-    MOON_PHASE(Items.END_STONE, "Moon Phase"),
-    PARTY_HEAD(Items.NAME_TAG, "Party Head"),
-    TAG(Items.NAME_TAG, "Tag");
+    TIME(Items.CLOCK, "pixelmonjei.condition.time"),
+    WEATHER(Items.SNOW_BLOCK, "pixelmonjei.condition.weather"),
+    BIOMES(Items.GRASS_BLOCK, "pixelmonjei.condition.biomes"),
+    DIMENSIONS(Items.OBSIDIAN, "pixelmonjei.condition.dimensions"),
+    LIGHT_LEVEL(Items.GLOWSTONE, "pixelmonjei.condition.light_level"),
+    SEES_SKY(Items.GLASS, "pixelmonjei.condition.sees_sky"),
+    TEMPERATURE(Items.ICE, "pixelmonjei.condition.temperature"),
+    BASE_BLOCKS(Items.STONE, "pixelmonjei.condition.base_blocks"),
+    NEARBY_BLOCKS(Items.CHEST, "pixelmonjei.condition.nearby_blocks"),
+    COORDINATES(Items.COMPASS, "pixelmonjei.condition.coordinates"),
+    STRUCTURES(Items.BRICKS, "pixelmonjei.condition.structures"),
+    MOON_PHASE(Items.END_STONE, "pixelmonjei.condition.moon_phase"),
+    PARTY_HEAD(Items.NAME_TAG, "pixelmonjei.condition.party_head"),
+    TAG(Items.NAME_TAG, "pixelmonjei.condition.tag");
 
     private final Item item;
-    private final String displayName;
+    private final String translationKey;
 
-    ConditionType(Item item, String displayName) {
+    ConditionType(Item item, String translationKey) {
         this.item = item;
-        this.displayName = displayName;
+        this.translationKey = translationKey;
     }
 
     public ItemStack createStack() {
         return new ItemStack(item);
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getTranslationKey() {
+        return translationKey;
     }
 }

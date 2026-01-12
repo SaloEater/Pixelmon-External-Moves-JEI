@@ -3,17 +3,20 @@ package com.saloeater.pixelmonjei;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
 import com.pixelmonmod.pixelmon.api.world.WeatherType;
 import com.pixelmonmod.pixelmon.api.world.WorldTime;
+import com.saloeater.pixelmonjei.recipe.PixelmonSpawningItemRecipe;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.BiomeRegistry;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class ConditionIconBuilder {
 
-    public static List<ConditionIngredient> buildIngredients(PixelmonForageRecipe recipe) {
+    public static List<ConditionIngredient> buildIngredients(PixelmonSpawningItemRecipe recipe) {
         List<ConditionIngredient> ingredients = new ArrayList<>();
         final int MAX_LINES_PER_ICON = 12;
 
@@ -24,7 +27,7 @@ public class ConditionIconBuilder {
         if (!antiConditions.isEmpty()) {
 
             List<String> header = new ArrayList<>();
-            header.add("§cNOT:");
+            header.add("§c" + I18n.get("pixelmonjei.label.not") + ":");
 
             ItemStack barrierIcon = new ItemStack(Items.BARRIER);
 
@@ -155,7 +158,7 @@ public class ConditionIconBuilder {
 
         private static List<String> formatTimes(ArrayList<WorldTime> times) {
             List<String> lines = new ArrayList<>();
-            lines.add("§eTime:");
+            lines.add("§e" + I18n.get("pixelmonjei.condition.time") + ":");
             for (WorldTime time : times) {
                 lines.add("  " + time.name());
             }
@@ -164,7 +167,7 @@ public class ConditionIconBuilder {
 
         private static List<String> formatWeathers(Set<WeatherType> weathers) {
             List<String> lines = new ArrayList<>();
-            lines.add("§eWeather:");
+            lines.add("§e" + I18n.get("pixelmonjei.condition.weather") + ":");
             for (WeatherType weather : weathers) {
                 lines.add("  " + weather.name());
             }
@@ -173,7 +176,7 @@ public class ConditionIconBuilder {
 
         private static List<String> formatBiomes(Set<ResourceLocation> biomes) {
             List<String> lines = new ArrayList<>();
-            lines.add("§eBiomes:");
+            lines.add("§e" + I18n.get("pixelmonjei.condition.biomes") + ":");
             List<String> biomeNames = biomes.stream()
                     .map(rl -> rl.getPath())
                     .collect(Collectors.toList());
@@ -186,7 +189,7 @@ public class ConditionIconBuilder {
 
         private static List<String> formatDimensions(Set<ResourceLocation> dimensions) {
             List<String> lines = new ArrayList<>();
-            lines.add("§eDimension:");
+            lines.add("§e" + I18n.get("pixelmonjei.condition.dimensions") + ":");
             for (ResourceLocation dim : dimensions) {
                 lines.add("  " + dim.toString());
             }
@@ -195,34 +198,34 @@ public class ConditionIconBuilder {
 
         private static List<String> formatLightLevel(Integer min, Integer max) {
             List<String> lines = new ArrayList<>();
-            lines.add("§eLight Level:");
+            lines.add("§e" + I18n.get("pixelmonjei.condition.light_level") + ":");
             if (min != null && max != null) {
                 lines.add("  " + min + " - " + max);
             } else if (min != null) {
-                lines.add("  Min: " + min);
+                lines.add("  " + I18n.get("pixelmonjei.label.min") + ": " + min);
             } else if (max != null) {
-                lines.add("  Max: " + max);
+                lines.add("  " + I18n.get("pixelmonjei.label.max") + ": " + max);
             }
             return lines;
         }
 
         private static List<String> formatSeesSky(Boolean seesSky) {
             return Arrays.asList(
-                    "§eSees Sky:",
-                    "  " + (seesSky ? "Yes" : "No")
+                    "§e" + I18n.get("pixelmonjei.condition.sees_sky") + ":",
+                    "  " + I18n.get(seesSky ? "pixelmonjei.label.yes" : "pixelmonjei.label.no")
             );
         }
 
         private static List<String> formatTemperature(Float temperature) {
             return Arrays.asList(
-                    "§eTemperature:",
+                    "§e" + I18n.get("pixelmonjei.condition.temperature") + ":",
                     "  " + temperature
             );
         }
 
         private static List<String> formatBlocks(Set<Block> blocks) {
             List<String> lines = new ArrayList<>();
-            lines.add("§eBlocks:");
+            lines.add("§e" + I18n.get("pixelmonjei.condition.blocks") + ":");
             List<String> blockNames = blocks.stream()
                     .map(block -> block.getRegistryName().getPath())
                     .collect(Collectors.toList());
@@ -235,7 +238,7 @@ public class ConditionIconBuilder {
 
         private static List<String> formatCoordinates(SpawnCondition condition) {
             List<String> lines = new ArrayList<>();
-            lines.add("§eCoordinates:");
+            lines.add("§e" + I18n.get("pixelmonjei.condition.coordinates") + ":");
             if (condition.minY != null || condition.maxY != null) {
                 String yRange = "";
                 if (condition.minY != null && condition.maxY != null) {
@@ -274,7 +277,7 @@ public class ConditionIconBuilder {
 
         private static List<String> formatStructures(ArrayList<String> structures) {
             List<String> lines = new ArrayList<>();
-            lines.add("§eStructures:");
+            lines.add("§e" + I18n.get("pixelmonjei.condition.structures") + ":");
             for (String structure : structures) {
                 lines.add("  " + structure);
             }
@@ -283,14 +286,14 @@ public class ConditionIconBuilder {
 
         private static List<String> formatMoonPhase(Integer moonPhase) {
             return Arrays.asList(
-                    "§eMoon Phase:",
-                    "  Phase " + moonPhase
+                    "§e" + I18n.get("pixelmonjei.condition.moon_phase") + ":",
+                    "  " + I18n.get("pixelmonjei.label.phase") + " " + moonPhase
             );
         }
 
         private static List<String> formatTag(String tag) {
             return Arrays.asList(
-                    "§eTag:",
+                    "§e" + I18n.get("pixelmonjei.condition.tag") + ":",
                     "  " + tag
             );
         }

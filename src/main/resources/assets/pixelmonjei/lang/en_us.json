@@ -1,0 +1,29 @@
+{
+  "pixelmonjei.condition.time": "Time",
+  "pixelmonjei.condition.weather": "Weather",
+  "pixelmonjei.condition.biomes": "Biomes",
+  "pixelmonjei.condition.dimensions": "Dimension",
+  "pixelmonjei.condition.light_level": "Light Level",
+  "pixelmonjei.condition.sees_sky": "Sees Sky",
+  "pixelmonjei.condition.temperature": "Temperature",
+  "pixelmonjei.condition.base_blocks": "Base Blocks",
+  "pixelmonjei.condition.nearby_blocks": "Nearby Blocks",
+  "pixelmonjei.condition.coordinates": "Coordinates",
+  "pixelmonjei.condition.structures": "Structures",
+  "pixelmonjei.condition.moon_phase": "Moon Phase",
+  "pixelmonjei.condition.party_head": "Party Head",
+  "pixelmonjei.condition.tag": "Tag",
+  "pixelmonjei.condition.blocks": "Blocks",
+
+  "pixelmonjei.stat.rarity": "Rarity",
+  "pixelmonjei.stat.percentage": "Percentage",
+  "pixelmonjei.stat.chance": "Chance",
+  "pixelmonjei.stat.required_space": "Required Space",
+
+  "pixelmonjei.label.min": "Min",
+  "pixelmonjei.label.max": "Max",
+  "pixelmonjei.label.phase": "Phase",
+  "pixelmonjei.label.yes": "Yes",
+  "pixelmonjei.label.no": "No",
+  "pixelmonjei.label.not": "NOT"
+}

@@ -1,8 +1,11 @@
-package com.saloeater.pixelmonjei;
+package com.saloeater.pixelmonjei.recipe;
 
 import com.pixelmonmod.pixelmon.api.spawning.SpawnInfo;
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.items.SpawnInfoItem;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
+import com.saloeater.pixelmonjei.ConditionIconBuilder;
+import com.saloeater.pixelmonjei.ConditionType;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -13,8 +16,7 @@ import net.minecraft.util.text.StringTextComponent;
 
 import java.util.*;
 
-public class PixelmonForageRecipe {
-    private final ResourceLocation id;
+public class PixelmonSpawningItemRecipe {
     private final SpawnInfoItem spawnInfoItem;
     private final ItemStack output;
     private final List<SpawnCondition> conditions;
@@ -28,7 +30,7 @@ public class PixelmonForageRecipe {
     private final Map<ConditionType, List<String>> groupedConditions;
     private final Map<ConditionType, List<String>> groupedAntiConditions;
 
-    public PixelmonForageRecipe(SpawnInfoItem spawnInfoItem, List<SpawnInfo> parentHierarchy) {
+    public PixelmonSpawningItemRecipe(SpawnInfoItem spawnInfoItem, List<SpawnInfo> parentHierarchy) {
         this.spawnInfoItem = spawnInfoItem;
         this.output = spawnInfoItem.itemStack.copy();
         this.minQuantity = spawnInfoItem.minQuantity;
@@ -39,7 +41,6 @@ public class PixelmonForageRecipe {
         this.requiredSpace = spawnInfoItem.requiredSpace;
 
         String itemName = output.getItem().getRegistryName().toString().replace(":", "_");
-        this.id = new ResourceLocation("pixelmonjei", "forage/" + itemName + "_" + System.identityHashCode(spawnInfoItem));
 
         this.conditions = new ArrayList<>();
         this.antiConditions = new ArrayList<>();
@@ -71,10 +72,6 @@ public class PixelmonForageRecipe {
         }
     }
 
-    public ResourceLocation getId() {
-        return id;
-    }
-
     public List<ItemStack> getOutputs() {
         ItemStack stack = output.copy();
         int averageCount = (minQuantity + maxQuantity) / 2;
@@ -85,25 +82,25 @@ public class PixelmonForageRecipe {
 
         if (rarity > 0) {
             lore.add(StringNBT.valueOf(ITextComponent.Serializer.toJson(
-                    new StringTextComponent("§7Rarity: §f" + String.format("%.2f", rarity))
+                    new StringTextComponent("§7" + I18n.get("pixelmonjei.stat.rarity") + ": §f" + String.format("%.2f", rarity))
             )));
         }
 
         if (percentage != null) {
             lore.add(StringNBT.valueOf(ITextComponent.Serializer.toJson(
-                    new StringTextComponent("§7Percentage: §f" + String.format("%.1f%%", percentage))
+                    new StringTextComponent("§7" + I18n.get("pixelmonjei.stat.percentage") + ": §f" + String.format("%.1f%%", percentage))
             )));
         }
 
         if (chance != null) {
             lore.add(StringNBT.valueOf(ITextComponent.Serializer.toJson(
-                    new StringTextComponent("§7Chance: §f" + String.format("%.1f%%", chance * 100))
+                    new StringTextComponent("§7" + I18n.get("pixelmonjei.stat.chance") + ": §f" + String.format("%.1f%%", chance * 100))
             )));
         }
 
         if (requiredSpace > 0) {
             lore.add(StringNBT.valueOf(ITextComponent.Serializer.toJson(
-                    new StringTextComponent("§7Required Space: §f" + requiredSpace)
+                    new StringTextComponent("§7" + I18n.get("pixelmonjei.stat.required_space") + ": §f" + requiredSpace)
             )));
         }
 

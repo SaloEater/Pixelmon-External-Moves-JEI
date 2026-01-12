@@ -3,11 +3,12 @@ package com.saloeater.pixelmonjei;
 import com.pixelmonmod.pixelmon.api.spawning.SpawnInfo;
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.collection.SpawnInfoCollection;
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.items.SpawnInfoItem;
+import com.saloeater.pixelmonjei.recipe.PixelmonSpawningItemRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForageRecipeExtractor {
+public class SpawnInfoRecipeExtractor {
 
     public static class ItemWithHierarchy {
         public final SpawnInfoItem item;
@@ -42,12 +43,12 @@ public class ForageRecipeExtractor {
         return results;
     }
 
-    public static List<PixelmonForageRecipe> extractRecipes(SpawnInfo spawnInfo) {
+    public static List<PixelmonSpawningItemRecipe> extractRecipes(SpawnInfo spawnInfo) {
         List<ItemWithHierarchy> items = extractItems(spawnInfo);
-        List<PixelmonForageRecipe> recipes = new ArrayList<>();
+        List<PixelmonSpawningItemRecipe> recipes = new ArrayList<>();
 
         for (ItemWithHierarchy itemWithHierarchy : items) {
-            recipes.add(new PixelmonForageRecipe(itemWithHierarchy.item, itemWithHierarchy.parentHierarchy));
+            recipes.add(new PixelmonSpawningItemRecipe(itemWithHierarchy.item, itemWithHierarchy.parentHierarchy));
         }
 
         return recipes;
