@@ -9,20 +9,14 @@ import net.minecraft.resources.ResourceLocation;
 import javax.annotation.Nullable;
 
 public class ConditionIngredientHelper implements IIngredientHelper<ConditionIngredient> {
-    @Nullable
     @Override
-    public ConditionIngredient getMatch(Iterable<ConditionIngredient> iterable, ConditionIngredient conditionIngredient) {
+    public IIngredientType<ConditionIngredient> getIngredientType() {
         return null;
     }
 
     @Override
     public String getDisplayName(ConditionIngredient ingredient) {
         return I18n.get(ingredient.getType().getTranslationKey());
-    }
-
-    @Override
-    public String getUniqueId(ConditionIngredient conditionIngredient) {
-        return "condition_" + conditionIngredient.getType().name() + "_" + conditionIngredient.isAntiCondition();
     }
 
     @Override
@@ -36,13 +30,8 @@ public class ConditionIngredientHelper implements IIngredientHelper<ConditionIng
     }
 
     @Override
-    public String getModId(ConditionIngredient ingredient) {
-        return "pixelmonjei";
-    }
-
-    @Override
-    public String getResourceId(ConditionIngredient ingredient) {
-        return ingredient.getType().name().toLowerCase();
+    public ResourceLocation getResourceLocation(ConditionIngredient conditionIngredient) {
+        return null;
     }
 
     @Override
