@@ -209,18 +209,26 @@ public class ConditionIconBuilder {
         private static List<String> formatTimes(ArrayList<WorldTime> times) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.time") + ":");
-            for (WorldTime time : times) {
-                lines.add("  " + I18n.get(time.getTranslationKey()));
-            }
+
+            List<String> timeStrings = times.stream()
+                    .map(time -> "  " + I18n.get(time.getTranslationKey()))
+                    .sorted()
+                    .collect(Collectors.toList());
+
+            lines.addAll(timeStrings);
             return lines;
         }
 
         private static List<String> formatWeathers(Set<WeatherType> weathers) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.weather") + ":");
-            for (WeatherType weather : weathers) {
-                lines.add("  " + I18n.get(weather.getTranslationKey()));
-            }
+
+            List<String> weatherStrings = weathers.stream()
+                    .map(weather -> "  " + I18n.get(weather.getTranslationKey()))
+                    .sorted()
+                    .collect(Collectors.toList());
+
+            lines.addAll(weatherStrings);
             return lines;
         }
 
@@ -229,17 +237,23 @@ public class ConditionIconBuilder {
             lines.add("§e" + I18n.get("pixelmonjei.condition.biomes") + ":");
             List<String> biomeNames = biomes.stream()
                     .map(rl -> "  " + generateTranslation( "biome", rl))
+                    .sorted()
                     .collect(Collectors.toList());
 
-            return biomeNames;
+            lines.addAll(biomeNames);
+            return lines;
         }
 
         private static List<String> formatDimensions(Set<ResourceLocation> dimensions) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.dimensions") + ":");
-            for (ResourceLocation dim : dimensions) {
-                lines.add("  " + generateTranslation( "dimension", dim));
-            }
+
+            List<String> dimensionStrings = dimensions.stream()
+                    .map(dim -> "  " + generateTranslation( "dimension", dim))
+                    .sorted()
+                    .collect(Collectors.toList());
+
+            lines.addAll(dimensionStrings);
             return lines;
         }
 
@@ -274,12 +288,11 @@ public class ConditionIconBuilder {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.blocks") + ":");
             List<String> blockNames = blocks.stream()
-                    .map(block -> I18n.get(block.getDescriptionId()))
+                    .map(block -> "  " + I18n.get(block.getDescriptionId()))
+                    .sorted()
                     .collect(Collectors.toList());
 
-            for (String block : blockNames) {
-                lines.add("  " + block);
-            }
+            lines.addAll(blockNames);
             return lines;
         }
 
@@ -325,9 +338,13 @@ public class ConditionIconBuilder {
         private static List<String> formatStructures(ArrayList<String> structures) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.structures") + ":");
-            for (String structure : structures) {
-                lines.add("  " + generateTranslation( "structure", new ResourceLocation(structure)));
-            }
+
+            List<String> structureStrings = structures.stream()
+                    .map(structure -> "  " + generateTranslation( "structure", new ResourceLocation(structure)))
+                    .sorted()
+                    .collect(Collectors.toList());
+
+            lines.addAll(structureStrings);
             return lines;
         }
 
