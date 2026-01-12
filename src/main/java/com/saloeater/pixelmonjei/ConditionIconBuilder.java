@@ -3,13 +3,11 @@ package com.saloeater.pixelmonjei;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
 import com.pixelmonmod.pixelmon.api.world.WeatherType;
 import com.pixelmonmod.pixelmon.api.world.WorldTime;
-import com.saloeater.pixelmonjei.recipe.PixelmonSpawningItemRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.BiomeRegistry;
 
 import java.util.*;
 import java.util.stream.Collectors;

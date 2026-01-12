@@ -1,16 +1,13 @@
-package com.saloeater.pixelmonjei.recipe;
+package com.saloeater.pixelmonjei;
 
 import com.pixelmonmod.pixelmon.api.spawning.SpawnInfo;
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.items.SpawnInfoItem;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
-import com.saloeater.pixelmonjei.ConditionIconBuilder;
-import com.saloeater.pixelmonjei.ConditionType;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 

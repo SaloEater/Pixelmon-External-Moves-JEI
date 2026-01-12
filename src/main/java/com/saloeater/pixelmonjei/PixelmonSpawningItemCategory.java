@@ -1,11 +1,6 @@
-package com.saloeater.pixelmonjei.category;
+package com.saloeater.pixelmonjei;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.pixelmonmod.pixelmon.api.registries.PixelmonItems;
-import com.saloeater.pixelmonjei.ConditionIconBuilder;
-import com.saloeater.pixelmonjei.ConditionIngredient;
-import com.saloeater.pixelmonjei.ConditionIngredientType;
-import com.saloeater.pixelmonjei.recipe.PixelmonSpawningItemRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;

@@ -1,17 +1,10 @@
 package com.saloeater.pixelmonjei;
 
-import com.pixelmonmod.pixelmon.api.battles.attack.AttackRegistry;
 import com.pixelmonmod.pixelmon.api.moveskills.MoveSkill;
 import com.pixelmonmod.pixelmon.api.registries.PixelmonBlocks;
 import com.pixelmonmod.pixelmon.api.registries.PixelmonItems;
 import com.pixelmonmod.pixelmon.api.spawning.SpawnSet;
-import com.pixelmonmod.pixelmon.blocks.PixelmonBlock;
-import com.pixelmonmod.pixelmon.client.gui.Resources;
-import com.pixelmonmod.pixelmon.items.PixelmonBlockItem;
-import com.pixelmonmod.pixelmon.items.PixelmonItem;
 import com.pixelmonmod.pixelmon.spawning.PixelmonSpawning;
-import com.saloeater.pixelmonjei.category.PixelmonSpawningItemCategory;
-import com.saloeater.pixelmonjei.recipe.PixelmonSpawningItemRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;

@@ -3,7 +3,6 @@ package com.saloeater.pixelmonjei;
 import com.pixelmonmod.pixelmon.api.spawning.SpawnInfo;
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.collection.SpawnInfoCollection;
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.items.SpawnInfoItem;
-import com.saloeater.pixelmonjei.recipe.PixelmonSpawningItemRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
