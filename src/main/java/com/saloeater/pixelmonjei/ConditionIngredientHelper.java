@@ -31,7 +31,7 @@ public class ConditionIngredientHelper implements IIngredientHelper<ConditionIng
 
     @Override
     public ResourceLocation getResourceLocation(ConditionIngredient conditionIngredient) {
-        return null;
+        return new ResourceLocation(PixelmonJEI.MODID, "condition_" + conditionIngredient.getType().name().toLowerCase());
     }
 
     @Override

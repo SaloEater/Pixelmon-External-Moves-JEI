@@ -40,16 +40,16 @@ public class PixelmonJEIPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         IGuiHelper guiHelper = registration.getJeiHelpers().getGuiHelper();
-        categories.put("forage", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Forage", "pixelmon_forage")).WithMoveAsIcon(guiHelper, MoveSkill.getMoveSkillByID("forage").sprite));
-        categories.put("fishing", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Fishing", "pixelmon_fishing").WithItemAsIcon(guiHelper, Items.FISHING_ROD)));
-        categories.put("rocksmash", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Rock Smash", "pixelmon_rocksmash")).WithMoveAsIcon(guiHelper, MoveSkill.getMoveSkillByID("rock_smash").sprite));
-        categories.put("headbutt", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Headbutt", "pixelmon_headbutt")).WithMoveAsIcon(guiHelper, MoveSkill.getMoveSkillByID("headbutt").sprite));
-        categories.put("sweetscent", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Sweet Scent", "pixelmon_sweetscent")).WithMoveAsIcon(guiHelper, MoveSkill.getMoveSkillByID("sweet_scent").sprite));
-        categories.put("curry", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Curry", "pixelmon_curry")).WithItemAsIcon(guiHelper, PixelmonItems.curry_fried_food));
-        categories.put("grass", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Grass", "pixelmon_grass")).WithItemAsIcon(guiHelper, PixelmonBlocks.pixelmon_grass.asItem()));
-        categories.put("tallgrass", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Tall Grass", "pixelmon_tallgrass")).WithItemAsIcon(guiHelper, Items.TALL_GRASS));
-        categories.put("seaweed", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Seaweed", "pixelmon_seaweed")).WithItemAsIcon(guiHelper, Blocks.SEAGRASS.asItem()));
-        categories.put("caverock", (new PixelmonSpawningItemCategory(guiHelper, "Pixelmon Cave Rock", "pixelmon_caverock")).WithItemAsIcon(guiHelper, PixelmonBlocks.cave_rock.asItem()));
+        categories.put("forage", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Forage", "pixelmon_forage", MoveSkill.getMoveSkillByID("forage").sprite));
+        categories.put("fishing", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Fishing", "pixelmon_fishing", Items.FISHING_ROD));
+        categories.put("rocksmash", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Rock Smash", "pixelmon_rocksmash", MoveSkill.getMoveSkillByID("rock_smash").sprite));
+        categories.put("headbutt", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Headbutt", "pixelmon_headbutt", MoveSkill.getMoveSkillByID("headbutt").sprite));
+        categories.put("sweetscent", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Sweet Scent", "pixelmon_sweetscent", MoveSkill.getMoveSkillByID("sweet_scent").sprite));
+        categories.put("curry", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Curry", "pixelmon_curry", PixelmonItems.curry_fried_food));
+        categories.put("grass", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Grass", "pixelmon_grass", PixelmonBlocks.pixelmon_grass.asItem()));
+        categories.put("tallgrass", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Tall Grass", "pixelmon_tallgrass", Items.TALL_GRASS));
+        categories.put("seaweed", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Seaweed", "pixelmon_seaweed", Blocks.SEAGRASS.asItem()));
+        categories.put("caverock", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Cave Rock", "pixelmon_caverock", PixelmonBlocks.cave_rock.asItem()));
 
         for (PixelmonSpawningItemCategory category : categories.values()) {
             registration.addRecipeCategories(category);
