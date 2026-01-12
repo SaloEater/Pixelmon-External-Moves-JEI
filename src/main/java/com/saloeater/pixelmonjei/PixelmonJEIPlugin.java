@@ -58,20 +58,20 @@ public class PixelmonJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        Map<ResourceLocation, List<SpawnSet>> spawnSets = new HashMap<>();
-        spawnSets.put(categories.get("forage").getUid(), PixelmonSpawning.forage);
-        spawnSets.put(categories.get("fishing").getUid(), PixelmonSpawning.fishing);
-        spawnSets.put(categories.get("rocksmash").getUid(), PixelmonSpawning.rocksmash);
-        spawnSets.put(categories.get("headbutt").getUid(), PixelmonSpawning.headbutt);
-        spawnSets.put(categories.get("sweetscent").getUid(), PixelmonSpawning.sweetscent);
-        spawnSets.put(categories.get("curry").getUid(), PixelmonSpawning.curry);
-        spawnSets.put(categories.get("grass").getUid(), PixelmonSpawning.grass);
-        spawnSets.put(categories.get("tallgrass").getUid(), PixelmonSpawning.tallgrass);
-        spawnSets.put(categories.get("seaweed").getUid(), PixelmonSpawning.seaweed);
-        spawnSets.put(categories.get("caverock").getUid(), PixelmonSpawning.caveRock);
+        Map<PixelmonSpawningItemCategory, List<SpawnSet>> spawnSets = new HashMap<>();
+        spawnSets.put(categories.get("forage"), PixelmonSpawning.forage);
+        spawnSets.put(categories.get("fishing"), PixelmonSpawning.fishing);
+        spawnSets.put(categories.get("rocksmash"), PixelmonSpawning.rocksmash);
+        spawnSets.put(categories.get("headbutt"), PixelmonSpawning.headbutt);
+        spawnSets.put(categories.get("sweetscent"), PixelmonSpawning.sweetscent);
+        spawnSets.put(categories.get("curry"), PixelmonSpawning.curry);
+        spawnSets.put(categories.get("grass"), PixelmonSpawning.grass);
+        spawnSets.put(categories.get("tallgrass"), PixelmonSpawning.tallgrass);
+        spawnSets.put(categories.get("seaweed"), PixelmonSpawning.seaweed);
+        spawnSets.put(categories.get("caverock"), PixelmonSpawning.caveRock);
 
-        for (Map.Entry<ResourceLocation, List<SpawnSet>> entry : spawnSets.entrySet()) {
-            ResourceLocation uid = entry.getKey();
+        for (var entry : spawnSets.entrySet()) {
+            ResourceLocation uid = entry.getKey().getUid();
             List<SpawnSet> spawnSet = entry.getValue();
             registerSpawnSet(registration, spawnSet, uid);
         }
