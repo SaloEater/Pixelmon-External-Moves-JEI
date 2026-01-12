@@ -4,11 +4,11 @@ import com.pixelmonmod.pixelmon.api.spawning.conditions.RarityMultiplier;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
 import com.pixelmonmod.pixelmon.api.world.WeatherType;
 import com.pixelmonmod.pixelmon.api.world.WorldTime;
-import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagEntry;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -180,14 +180,14 @@ public class ConditionIconBuilder {
                         .addAll(formatTemperature(condition.temperature));
             }
 
-            if (condition.cachedBaseBlocks != null && !condition.cachedBaseBlocks.isEmpty()) {
+            if (condition.baseBlocks != null && !condition.baseBlocks.isEmpty()) {
                 grouped.computeIfAbsent(ConditionType.BASE_BLOCKS, k -> new ArrayList<>())
-                        .addAll(formatBlocks(condition.cachedBaseBlocks));
+                        .addAll(formatBlocks(condition.baseBlocks));
             }
 
-            if (condition.cachedNeededNearbyBlocks != null && !condition.cachedNeededNearbyBlocks.isEmpty()) {
+            if (condition.neededNearbyBlocks != null && !condition.neededNearbyBlocks.isEmpty()) {
                 grouped.computeIfAbsent(ConditionType.NEARBY_BLOCKS, k -> new ArrayList<>())
-                        .addAll(formatBlocks(condition.cachedNeededNearbyBlocks));
+                        .addAll(formatBlocks(condition.neededNearbyBlocks));
             }
 
             if (condition.minX != null || condition.maxX != null ||
@@ -243,11 +243,11 @@ public class ConditionIconBuilder {
             return lines;
         }
 
-        private static List<String> formatBiomes(Set<ResourceLocation> biomes) {
+        private static List<String> formatBiomes(Set<TagEntry> biomes) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.biomes") + ":");
             List<String> biomeNames = biomes.stream()
-                    .map(rl -> "  " + (rl == null ? getUnknownConditionLine() : generateTranslation( "biome", rl)))
+                    .map(biome -> "  " + (biome == null ? getUnknownConditionLine() : biome.toString()))
                     .sorted()
                     .collect(Collectors.toList());
 
@@ -295,11 +295,11 @@ public class ConditionIconBuilder {
             );
         }
 
-        private static List<String> formatBlocks(Set<Block> blocks) {
+        private static List<String> formatBlocks(Set<TagEntry> blocks) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.blocks") + ":");
             List<String> blockNames = blocks.stream()
-                    .map(block -> "  " + (block == null ? getUnknownConditionLine() : I18n.get(block.getDescriptionId())))
+                    .map(block -> "  " + (block == null ? getUnknownConditionLine() : block.toString()))
                     .sorted()
                     .collect(Collectors.toList());
 

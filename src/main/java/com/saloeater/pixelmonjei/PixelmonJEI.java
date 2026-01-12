@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 @Mod("pixelmonjei")
 public class PixelmonJEI
 {
+    public static String MODID = "pixelmonjei";
     private static final Logger LOGGER = LogManager.getLogger();
 
     public PixelmonJEI() {

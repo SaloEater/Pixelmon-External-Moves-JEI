@@ -4,13 +4,11 @@ import com.pixelmonmod.pixelmon.api.spawning.SpawnInfo;
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.items.SpawnInfoItem;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.RarityMultiplier;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 
@@ -38,8 +36,6 @@ public class PixelmonSpawningItemRecipe {
         this.percentage = spawnInfoItem.percentage;
         this.chance = spawnInfoItem.chance;
         this.requiredSpace = spawnInfoItem.requiredSpace;
-
-        String itemName = output.getItem().getRegistryName().toString().replace(":", "_");
 
         this.conditions = new ArrayList<>();
         this.antiConditions = new ArrayList<>();
@@ -83,34 +79,26 @@ public class PixelmonSpawningItemRecipe {
         int averageCount = (minQuantity + maxQuantity) / 2;
         stack.setCount(averageCount);
 
-        CompoundNBT display = stack.getOrCreateTagElement("display");
-        ListNBT lore = new ListNBT();
+        CompoundTag display = stack.getOrCreateTagElement("display");
+        ListTag lore = new ListTag();
 
         if (rarity > 0) {
-            lore.add(StringNBT.valueOf(ITextComponent.Serializer.toJson(
-                    new StringTextComponent("§7" + I18n.get("pixelmonjei.stat.rarity") + ": §f" + String.format("%.2f", rarity))
-            )));
+            lore.add(StringTag.valueOf("§7" + I18n.get("pixelmonjei.stat.rarity") + ": §f" + String.format("%.2f", rarity)));
         }
 
         if (percentage != null) {
-            lore.add(StringNBT.valueOf(ITextComponent.Serializer.toJson(
-                    new StringTextComponent("§7" + I18n.get("pixelmonjei.stat.percentage") + ": §f" + String.format("%.1f%%", percentage))
-            )));
+            lore.add(StringTag.valueOf("§7" + I18n.get("pixelmonjei.stat.percentage") + ": §f" + String.format("%.1f%%", percentage)));
         }
 
         if (chance != null) {
-            lore.add(StringNBT.valueOf(ITextComponent.Serializer.toJson(
-                    new StringTextComponent("§7" + I18n.get("pixelmonjei.stat.chance") + ": §f" + String.format("%.1f%%", chance * 100))
-            )));
+            lore.add(StringTag.valueOf("§7" + I18n.get("pixelmonjei.stat.chance") + ": §f" + String.format("%.1f%%", chance * 100)));
         }
 
         if (requiredSpace > 0) {
-            lore.add(StringNBT.valueOf(ITextComponent.Serializer.toJson(
-                    new StringTextComponent("§7" + I18n.get("pixelmonjei.stat.required_space") + ": §f" + requiredSpace)
-            )));
+            lore.add(StringTag.valueOf("§7" + I18n.get("pixelmonjei.stat.required_space") + ": §f" + requiredSpace));
         }
 
-        if (lore.size() > 0) {
+        if (!lore.isEmpty()) {
             display.put("Lore", lore);
         }
 

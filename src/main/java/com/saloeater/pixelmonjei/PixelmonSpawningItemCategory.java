@@ -1,18 +1,15 @@
 package com.saloeater.pixelmonjei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 
 public class PixelmonSpawningItemCategory implements IRecipeCategory<PixelmonSpawningItemRecipe> {
     private static final int RECIPE_WIDTH = 160;
@@ -44,12 +41,14 @@ public class PixelmonSpawningItemCategory implements IRecipeCategory<PixelmonSpa
     private final String localizedName;
 
     private final ResourceLocation id;
+    private final RecipeType<PixelmonSpawningItemRecipe> recipeType;
 
     public PixelmonSpawningItemCategory(IGuiHelper guiHelper, String localizedName, String id) {
         this.background = guiHelper.createBlankDrawable(RECIPE_WIDTH, RECIPE_HEIGHT);
         this.slotDrawable = guiHelper.getSlotDrawable();
         this.localizedName = localizedName;
-        this.id = new ResourceLocation("pixelmonjei", id);
+        this.id = new ResourceLocation(PixelmonJEI.MODID, id);
+        this.recipeType = RecipeType.create(PixelmonJEI.MODID, id, PixelmonSpawningItemRecipe.class);
     }
 
     public PixelmonSpawningItemCategory WithItemAsIcon(IGuiHelper guiHelper, Item item) {
