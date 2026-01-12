@@ -138,6 +138,13 @@ public class ConditionIconBuilder {
         }
 
         public static void groupConditionsByType(SpawnCondition condition, Map<ConditionType, List<String>> grouped) {
+            // Handle null conditions
+            if (condition == null) {
+                grouped.computeIfAbsent(ConditionType.UNKNOWN, k -> new ArrayList<>())
+                        .add(getUnknownConditionLine());
+                return;
+            }
+
             if (condition.times != null && !condition.times.isEmpty()) {
                 grouped.computeIfAbsent(ConditionType.TIME, k -> new ArrayList<>())
                         .addAll(formatTimes(condition.times));
@@ -206,12 +213,16 @@ public class ConditionIconBuilder {
             }
         }
 
-        private static List<String> formatTimes(ArrayList<WorldTime> times) {
+    private static String getUnknownConditionLine() {
+        return "§c" + I18n.get("pixelmonjei.condition.unknown");
+    }
+
+    private static List<String> formatTimes(ArrayList<WorldTime> times) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.time") + ":");
 
             List<String> timeStrings = times.stream()
-                    .map(time -> "  " + I18n.get(time.getTranslationKey()))
+                    .map(time -> "  " + (time == null ? getUnknownConditionLine() : I18n.get(time.getTranslationKey())))
                     .sorted()
                     .collect(Collectors.toList());
 
@@ -224,7 +235,7 @@ public class ConditionIconBuilder {
             lines.add("§e" + I18n.get("pixelmonjei.condition.weather") + ":");
 
             List<String> weatherStrings = weathers.stream()
-                    .map(weather -> "  " + I18n.get(weather.getTranslationKey()))
+                    .map(weather -> "  " + (weather == null ? getUnknownConditionLine() : I18n.get(weather.getTranslationKey())))
                     .sorted()
                     .collect(Collectors.toList());
 
@@ -236,7 +247,7 @@ public class ConditionIconBuilder {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.biomes") + ":");
             List<String> biomeNames = biomes.stream()
-                    .map(rl -> "  " + generateTranslation( "biome", rl))
+                    .map(rl -> "  " + (rl == null ? getUnknownConditionLine() : generateTranslation( "biome", rl)))
                     .sorted()
                     .collect(Collectors.toList());
 
@@ -249,7 +260,7 @@ public class ConditionIconBuilder {
             lines.add("§e" + I18n.get("pixelmonjei.condition.dimensions") + ":");
 
             List<String> dimensionStrings = dimensions.stream()
-                    .map(dim -> "  " + generateTranslation( "dimension", dim))
+                    .map(dim -> "  " + (dim == null ? getUnknownConditionLine() : generateTranslation( "dimension", dim)))
                     .sorted()
                     .collect(Collectors.toList());
 
@@ -288,7 +299,7 @@ public class ConditionIconBuilder {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.blocks") + ":");
             List<String> blockNames = blocks.stream()
-                    .map(block -> "  " + I18n.get(block.getDescriptionId()))
+                    .map(block -> "  " + (block == null ? getUnknownConditionLine() : I18n.get(block.getDescriptionId())))
                     .sorted()
                     .collect(Collectors.toList());
 
@@ -340,7 +351,7 @@ public class ConditionIconBuilder {
             lines.add("§e" + I18n.get("pixelmonjei.condition.structures") + ":");
 
             List<String> structureStrings = structures.stream()
-                    .map(structure -> "  " + generateTranslation( "structure", new ResourceLocation(structure)))
+                    .map(structure -> "  " + (structure == null ? getUnknownConditionLine() : generateTranslation( "structure", new ResourceLocation(structure))))
                     .sorted()
                     .collect(Collectors.toList());
 

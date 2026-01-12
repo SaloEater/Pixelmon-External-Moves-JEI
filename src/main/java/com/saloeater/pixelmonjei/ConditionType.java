@@ -21,7 +21,8 @@ public enum ConditionType {
     MOON_PHASE(Items.END_STONE, "pixelmonjei.condition.moon_phase"),
     PARTY_HEAD(Items.NAME_TAG, "pixelmonjei.condition.party_head"),
     TAG(Items.NAME_TAG, "pixelmonjei.condition.tag"),
-    MULTIPLIER(Items.ENCHANTED_BOOK, "pixelmonjei.multiplier");
+    MULTIPLIER(Items.ENCHANTED_BOOK, "pixelmonjei.multiplier"),
+    UNKNOWN(Items.BARRIER, "pixelmonjei.condition.unknown");
 
     private final Item item;
     private final String translationKey;
