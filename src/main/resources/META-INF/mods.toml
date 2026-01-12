@@ -56,3 +56,17 @@ Adds JEI (Just Enough Items) integration for Pixelmon, providing recipe viewing 
     versionRange="[1.16.5,1.17)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.pixelmonjei]]
+    modId="jei"
+    mandatory=true
+    # This version range declares a minimum of the current minecraft version up to but not including the next major version
+    versionRange="[7.8.0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.pixelmonjei]]
+    modId="pixelmon"
+    mandatory=true
+    # This version range declares a minimum of the current minecraft version up to but not including the next major version
+    versionRange="[9.1.12,)"
+    ordering="NONE"
+    side="BOTH"
