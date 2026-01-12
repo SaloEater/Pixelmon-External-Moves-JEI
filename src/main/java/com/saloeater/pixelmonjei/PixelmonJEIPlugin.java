@@ -88,6 +88,6 @@ public class PixelmonJEIPlugin implements IModPlugin {
         });
 
         LOGGER.info("Registering {} Pixelmon Forage recipes in JEI", allRecipes.size());
-        registration.addRecipes(allRecipes, category.getUid());
+        registration.addRecipes(category.getRecipeType(), allRecipes);
     }
 }
