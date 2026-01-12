@@ -71,13 +71,12 @@ public class PixelmonJEIPlugin implements IModPlugin {
         spawnSets.put(categories.get("caverock"), PixelmonSpawning.caveRock);
 
         for (var entry : spawnSets.entrySet()) {
-            ResourceLocation uid = entry.getKey().getUid();
             List<SpawnSet> spawnSet = entry.getValue();
-            registerSpawnSet(registration, spawnSet, uid);
+            registerSpawnSet(registration, spawnSet, entry.getKey());
         }
     }
 
-    private static void registerSpawnSet(IRecipeRegistration registration, List<SpawnSet> spawnSet, ResourceLocation uid) {
+    private static void registerSpawnSet(IRecipeRegistration registration, List<SpawnSet> spawnSet, PixelmonSpawningItemCategory category) {
         List<PixelmonSpawningItemRecipe> allRecipes = new ArrayList<>();
 
         spawnSet.forEach(forageEntry -> {
@@ -89,6 +88,6 @@ public class PixelmonJEIPlugin implements IModPlugin {
         });
 
         LOGGER.info("Registering {} Pixelmon Forage recipes in JEI", allRecipes.size());
-        registration.addRecipes(allRecipes, uid);
+        registration.addRecipes(allRecipes, category.getUid());
     }
 }
