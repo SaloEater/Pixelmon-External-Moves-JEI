@@ -4,6 +4,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawablesView;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.placement.HorizontalAlignment;
 import mezz.jei.api.gui.placement.VerticalAlignment;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
@@ -14,11 +15,12 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.item.Item;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 import java.util.List;
 
@@ -125,5 +127,10 @@ public class PixelmonSpawningItemCategory extends AbstractRecipeCategory<Pixelmo
             IScrollGridWidget multipliersGrid = builder.addScrollGridWidget(multiplierSlots, MULTIPLIERS_COLUMNS, MULTIPLIERS_ROWS);
             multipliersGrid.setPosition(multipliersX, 40, width, getHeight() - 40, HorizontalAlignment.LEFT, VerticalAlignment.TOP);
         }
+    }
+
+    @Override
+    public void draw(PixelmonSpawningItemRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+
     }
 }

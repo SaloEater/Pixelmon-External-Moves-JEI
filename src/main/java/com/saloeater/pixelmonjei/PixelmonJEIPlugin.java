@@ -11,8 +11,8 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.world.item.Items;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -74,6 +74,10 @@ public class PixelmonJEIPlugin implements IModPlugin {
             List<SpawnSet> spawnSet = entry.getValue();
             registerSpawnSet(registration, spawnSet, entry.getKey());
         }
+
+        // Clear caches after all recipes are registered
+        ConditionIconBuilder.clearCaches();
+        LOGGER.info("Cleared ConditionIconBuilder caches after recipe registration");
     }
 
     private static void registerSpawnSet(IRecipeRegistration registration, List<SpawnSet> spawnSet, PixelmonSpawningItemCategory category) {

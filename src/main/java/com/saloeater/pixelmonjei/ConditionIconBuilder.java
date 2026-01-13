@@ -4,16 +4,36 @@ import com.pixelmonmod.pixelmon.api.spawning.conditions.RarityMultiplier;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
 import com.pixelmonmod.pixelmon.api.world.WeatherType;
 import com.pixelmonmod.pixelmon.api.world.WorldTime;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagEntry;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class ConditionIconBuilder {
+    // Cache for resolved biome names from individual TagEntry
+    private static final Map<TagEntry, List<String>> biomeNameCache = new HashMap<>();
+
+    // Cache for resolved block names from individual TagEntry
+    private static final Map<TagEntry, List<String>> blockNameCache = new HashMap<>();
+
+    /**
+     * Clears the caches for resolved biome and block names.
+     * Call this after JEI recipe registration or when switching worlds.
+     */
+    public static void clearCaches() {
+        biomeNameCache.clear();
+        blockNameCache.clear();
+    }
 
     public static List<ConditionIngredient> buildIngredients(PixelmonSpawningItemRecipe recipe) {
         List<ConditionIngredient> ingredients = new ArrayList<>();
@@ -217,6 +237,138 @@ public class ConditionIconBuilder {
         return "§c" + I18n.get("pixelmonjei.condition.unknown");
     }
 
+    /**
+     * Resolves a set of TagEntry to actual biome names using level registries
+     */
+    private static List<String> resolveBiomeNames(Set<TagEntry> tagEntries) {
+        List<String> resolvedNames = new ArrayList<>();
+        Minecraft minecraft = Minecraft.getInstance();
+
+        for (TagEntry entry : tagEntries) {
+            if (entry == null) {
+                resolvedNames.add(getUnknownConditionLine());
+                continue;
+            }
+
+            // Check cache first for this individual entry
+            if (biomeNameCache.containsKey(entry)) {
+                resolvedNames.addAll(biomeNameCache.get(entry));
+                continue;
+            }
+
+            // Resolve this entry
+            List<String> entryNames = new ArrayList<>();
+
+            if (minecraft.level != null) {
+                Optional<Registry<Biome>> biomeRegistry = minecraft.level.registryAccess().registry(ForgeRegistries.Keys.BIOMES);
+
+                if (biomeRegistry.isPresent()) {
+                    Registry<Biome> registry = biomeRegistry.get();
+
+                    // Get the resource location from the tag entry
+                    ResourceLocation location = entry.getId();
+
+                    // Try to get the biome from the registry
+                    var biomes = registry.getTag(TagKey.create(ForgeRegistries.Keys.BIOMES, location));
+
+                    if (biomes.isPresent()) {
+                        biomes.get().forEach(biome -> {
+                            String path = registry.key().location().getPath();
+                            entryNames.add(I18n.get(registry.getKey(biome.get()).toLanguageKey("biome")));
+                        });
+                    } else {
+                        var biome = registry.getOptional(location);
+                        if (biome.isPresent()) {
+                            String path = registry.key().location().getPath();
+                            entryNames.add(I18n.get(registry.getKey(biome.get()).toLanguageKey("biome")));
+                        } else {
+                            // Fallback to the location string
+                            entryNames.add(location.toString());
+                        }
+                    }
+                } else {
+                    // Fallback: just use toString
+                    entryNames.add(entry.toString());
+                }
+            } else {
+                // Fallback: just use toString
+                entryNames.add(entry.toString());
+            }
+
+            // Cache this individual entry's result
+            biomeNameCache.put(entry, entryNames);
+            resolvedNames.addAll(entryNames);
+        }
+
+        return resolvedNames;
+    }
+
+    /**
+     * Resolves a set of TagEntry to actual block names using level registries
+     */
+    private static List<String> resolveBlockNames(Set<TagEntry> tagEntries) {
+        List<String> resolvedNames = new ArrayList<>();
+        Minecraft minecraft = Minecraft.getInstance();
+
+        for (TagEntry entry : tagEntries) {
+            if (entry == null) {
+                resolvedNames.add(getUnknownConditionLine());
+                continue;
+            }
+
+            // Check cache first for this individual entry
+            if (blockNameCache.containsKey(entry)) {
+                resolvedNames.addAll(blockNameCache.get(entry));
+                continue;
+            }
+
+            // Resolve this entry
+            List<String> entryNames = new ArrayList<>();
+
+            if (minecraft.level != null) {
+                Optional<Registry<Block>> blockRegistry = minecraft.level.registryAccess().registry(ForgeRegistries.Keys.BLOCKS);
+
+                if (blockRegistry.isPresent()) {
+                    Registry<Block> registry = blockRegistry.get();
+
+                    // Get the resource location from the tag entry
+                    ResourceLocation location = entry.getId();
+
+                    // Try to get the block from the registry
+                    var blocks = registry.getTag(TagKey.create(ForgeRegistries.Keys.BLOCKS, location));
+
+                    if (blocks.isPresent()) {
+                        blocks.get().forEach(block -> {
+                            String path = registry.key().registry().getPath();
+                            entryNames.add(I18n.get(registry.getKey(block.get()).toLanguageKey(path)));
+                        });
+                    } else {
+                        var block = registry.getOptional(location);
+                        if (block.isPresent()) {
+                            String path = registry.key().registry().getPath();
+                            entryNames.add(I18n.get(registry.getKey(block.get()).toLanguageKey(path)));
+                        } else {
+                        // Fallback to the location string
+                        entryNames.add(location.toString());
+                        }
+                    }
+                } else {
+                    // Fallback: just use toString
+                    entryNames.add(entry.toString());
+                }
+            } else {
+                // Fallback: just use toString
+                entryNames.add(entry.toString());
+            }
+
+            // Cache this individual entry's result
+            blockNameCache.put(entry, entryNames);
+            resolvedNames.addAll(entryNames);
+        }
+
+        return resolvedNames;
+    }
+
     private static List<String> formatTimes(ArrayList<WorldTime> times) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.time") + ":");
@@ -246,8 +398,12 @@ public class ConditionIconBuilder {
         private static List<String> formatBiomes(Set<TagEntry> biomes) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.biomes") + ":");
-            List<String> biomeNames = biomes.stream()
-                    .map(biome -> "  " + (biome == null ? getUnknownConditionLine() : biome.toString()))
+
+            // Resolve biome names using level registries with caching
+            List<String> resolvedNames = resolveBiomeNames(biomes);
+
+            List<String> biomeNames = resolvedNames.stream()
+                    .map(name -> "  " + name)
                     .sorted()
                     .collect(Collectors.toList());
 
@@ -298,8 +454,12 @@ public class ConditionIconBuilder {
         private static List<String> formatBlocks(Set<TagEntry> blocks) {
             List<String> lines = new ArrayList<>();
             lines.add("§e" + I18n.get("pixelmonjei.condition.blocks") + ":");
-            List<String> blockNames = blocks.stream()
-                    .map(block -> "  " + (block == null ? getUnknownConditionLine() : block.toString()))
+
+            // Resolve block names using ForgeRegistries with caching
+            List<String> resolvedNames = resolveBlockNames(blocks);
+
+            List<String> blockNames = resolvedNames.stream()
+                    .map(name -> "  " + name)
                     .sorted()
                     .collect(Collectors.toList());
 
