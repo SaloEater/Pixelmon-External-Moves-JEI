@@ -40,11 +40,11 @@ public class PixelmonJEIPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         IGuiHelper guiHelper = registration.getJeiHelpers().getGuiHelper();
-        categories.put("forage", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Forage", "pixelmon_forage", MoveSkill.getMoveSkillByID("forage").sprite));
+        categories.put("forage", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Forage", "pixelmon_forage", MoveSkill.getMoveSkillByID("forage").sprite()));
         categories.put("fishing", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Fishing", "pixelmon_fishing", Items.FISHING_ROD));
-        categories.put("rocksmash", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Rock Smash", "pixelmon_rocksmash", MoveSkill.getMoveSkillByID("rock_smash").sprite));
-        categories.put("headbutt", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Headbutt", "pixelmon_headbutt", MoveSkill.getMoveSkillByID("headbutt").sprite));
-        categories.put("sweetscent", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Sweet Scent", "pixelmon_sweetscent", MoveSkill.getMoveSkillByID("sweet_scent").sprite));
+        categories.put("rocksmash", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Rock Smash", "pixelmon_rocksmash", MoveSkill.getMoveSkillByID("rock_smash").sprite()));
+        categories.put("headbutt", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Headbutt", "pixelmon_headbutt", MoveSkill.getMoveSkillByID("headbutt").sprite()));
+        categories.put("sweetscent", PixelmonSpawningItemCategory.withMoveAsIcon(guiHelper, "Pixelmon Sweet Scent", "pixelmon_sweetscent", MoveSkill.getMoveSkillByID("sweet_scent").sprite()));
         categories.put("curry", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Curry", "pixelmon_curry", PixelmonItems.curry_fried_food));
         categories.put("grass", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Grass", "pixelmon_grass", PixelmonBlocks.pixelmon_grass.asItem()));
         categories.put("tallgrass", PixelmonSpawningItemCategory.withItemAsIcon(guiHelper, "Pixelmon Tall Grass", "pixelmon_tallgrass", Items.TALL_GRASS));
